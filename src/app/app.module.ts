@@ -1,14 +1,15 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NavComponent } from './nav/nav.component';
 
 @NgModule({
-	declarations: [AppComponent],
-	imports: [BrowserModule, AppRoutingModule, HttpClientModule, BrowserAnimationsModule],
+	declarations: [AppComponent, NavComponent],
+	imports: [AppRoutingModule, BrowserAnimationsModule, BrowserModule, FormsModule, HttpClientModule],
 	providers: [],
 	bootstrap: [AppComponent],
 })
