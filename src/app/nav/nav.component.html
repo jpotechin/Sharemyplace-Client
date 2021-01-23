@@ -5,7 +5,7 @@
 		<div><a href="">Places</a></div>
 		<div><a href="">Messages</a></div>
 	</div>
-	<div *ngIf="!loggedIn">
+	<div *ngIf="(this.accountService.currentUser$ | async) === null">
 		<form
 			#loginForm="ngForm"
 			class="flex flex-row justify-center items-center pr-3"
@@ -38,10 +38,7 @@
 			</div>
 		</form>
 	</div>
-	<!-- <div *ngIf="loggedIn" class="flex flex-row justify-end pr-3">
-		<button class="rounded bg-red-500 hover:bg-red-700 py-2 px-4 text-white" (click)="logout()">Logout</button>
-    </div> -->
-	<div *ngIf="loggedIn" class="flex flex-row justify-end pr-3">
+	<div *ngIf="this.accountService.currentUser$ | async" class="flex flex-row justify-end pr-3">
 		<!-- This example requires Tailwind CSS v2.0+ -->
 		<div class="relative inline-block text-left">
 			<div>
@@ -53,7 +50,7 @@
 					aria-expanded="true"
 					(click)="showOptions()"
 				>
-					Options
+					Welcome User
 					<!-- Heroicon name: chevron-down -->
 					<svg
 						class="-mr-1 ml-2 h-5 w-5"

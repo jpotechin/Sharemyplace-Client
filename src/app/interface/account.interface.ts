@@ -1,4 +1,4 @@
-export interface LoggedInReponse {
+export interface User {
 	token: string;
 	username: string;
 }
