@@ -1,0 +1,54 @@
+<form #registerFrom="ngForm" (ngSubmit)="register()" autocapitalize="off" autocomplete="off" class="w-full">
+	<div class="bg-grey-lighter min-h-screen flex flex-col">
+		<div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
+			<div class="bg-white px-6 py-8 rounded shadow-md text-black w-full">
+				<h1 class="mb-8 text-3xl text-center">Sign up</h1>
+				<!-- <input
+						type="text"
+						class="block border border-grey-light w-full p-3 rounded mb-4"
+						name="fullname"
+						placeholder="Full Name"
+					/> -->
+
+				<input
+					type="text"
+					class="block border border-grey-light w-full p-3 rounded mb-4"
+					name="username"
+					placeholder="Username"
+					[(ngModel)]="model.username"
+				/>
+
+				<input
+					type="password"
+					class="block border border-grey-light w-full p-3 rounded mb-4"
+					name="password"
+					placeholder="Password"
+					[(ngModel)]="model.password"
+				/>
+				<input
+					type="password"
+					class="block border border-grey-light w-full p-3 rounded mb-4"
+					name="confirm_password"
+					placeholder="Confirm Password"
+					[(ngModel)]="model.confirmPassword"
+				/>
+				<div class="flex flex-row flex-wrap justify-center items-center">
+					<button
+						type="submit"
+						class="rounded-sm bg-blue-500 hover:bg-blue-700 px-4 py-2 text-white mr-1"
+						(click)="register()"
+					>
+						Create Account
+					</button>
+					<button type="button" class="rounded-sm bg-red-500 hover:bg-red-700 px-4 py-2 text-white" (click)="cancel()">
+						Cancel
+					</button>
+				</div>
+				<div class="text-grey-dark mt-6">
+					Already have an account?
+					<a class="no-underline border-b border-blue text-blue" href="/"> Log in </a>.
+				</div>
+			</div>
+		</div>
+	</div>
+</form>

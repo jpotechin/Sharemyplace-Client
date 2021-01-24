@@ -1,4 +1,4 @@
-<nav class="grid grid-flow-col shadow-md mt-3 pb-3 items-center">
+<nav class="grid grid-flow-col shadow-md mx-auto my-auto py-3 align-middle">
 	<div class="flex flex-row justify-center items-center">Share My Place</div>
 	<div class="flex flex-row justify-between items-center pr-3">
 		<div><a href="">Matches</a></div>
@@ -50,7 +50,8 @@
 					aria-expanded="true"
 					(click)="showOptions()"
 				>
-					Welcome User
+					<span *ngIf="currentUser">Welcome {{ currentUser.username }} </span>
+					<span *ngIf="!currentUser">Welcome </span>
 					<!-- Heroicon name: chevron-down -->
 					<svg
 						class="-mr-1 ml-2 h-5 w-5"

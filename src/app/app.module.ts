@@ -7,9 +7,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
-	declarations: [AppComponent, NavComponent, HomeComponent],
+	declarations: [AppComponent, NavComponent, HomeComponent, RegisterComponent],
 	imports: [AppRoutingModule, BrowserAnimationsModule, BrowserModule, FormsModule, HttpClientModule],
 	providers: [],
 	bootstrap: [AppComponent],
