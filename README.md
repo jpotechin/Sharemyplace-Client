@@ -1,2 +1,2 @@
-Share My Place Client
-Angular 11 Typescript RxJS & Tailwinds
+# Share My Place Client
+Built with Angular 11 Typescript RxJS & Tailwinds
