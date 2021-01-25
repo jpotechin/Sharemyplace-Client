@@ -1,9 +1,17 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { error } from 'protractor';
+import { AccountService } from './../_services/account.service';
 
 interface RegistrationModel {
 	username: string;
 	password: string;
 	confirmPassword: string;
+}
+
+interface RegistrationSubmission {
+	username: string;
+	password: string;
 }
 
 @Component({
@@ -12,23 +20,53 @@ interface RegistrationModel {
 	styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-	@Input() usersList: any;
 	@Output() cancelRegister = new EventEmitter();
 	model: any = {};
+	passwordsMatch = { formSubmitted: false, passwordsSame: false };
 
-	constructor() {}
+	registerForm = this.fb.group({
+		username: ['', [Validators.required, Validators.minLength(3)]],
+		password: ['', [Validators.required, Validators.minLength(5)]],
+		confirmPassword: ['', [Validators.required, Validators.minLength(5)]],
+	});
 
-	ngOnInit(): void {
-		console.log('user list', this.usersList);
+	constructor(private accountService: AccountService, private fb: FormBuilder) {}
+
+	ngOnInit(): void {}
+
+	// tslint:disable-next-line: typedef
+	get username() {
+		return this.registerForm.get('username');
+	}
+	// tslint:disable-next-line: typedef
+	get password() {
+		return this.registerForm.get('password');
+	}
+	// tslint:disable-next-line: typedef
+	get confirmPassword() {
+		return this.registerForm.get('confirmPassword');
 	}
 
 	register(): void {
-		console.log(this.model);
-		const passwordMatch = this.confirmPasswordMatch();
-		if (passwordMatch) {
-			console.log('Password matches');
+		this.passwordsMatch.formSubmitted = false;
+		this.passwordsMatch.passwordsSame = false;
+		if (this.checkPasswords()) {
+			const registerObj: RegistrationSubmission = {
+				username: this.registerForm.value.username,
+				password: this.registerForm.value.password,
+			};
+			this.accountService.register(registerObj).subscribe(
+				(response) => {
+					this.passwordsMatch.formSubmitted = false;
+					this.passwordsMatch.passwordsSame = false;
+					this.cancel();
+				},
+
+				(err) => {
+					console.error('Register Error: ', err);
+				}
+			);
 		} else {
-			console.log('Password Does not match');
 		}
 	}
 
@@ -36,12 +74,13 @@ export class RegisterComponent implements OnInit {
 		this.cancelRegister.emit(false);
 	}
 
-	confirmPasswordMatch(): boolean {
-		if (this.model && this.model.password && this.model.confirmPassword) {
-			const { password, confirmPassword } = this.model;
-			return password === confirmPassword ? true : false;
-		} else {
-			return false;
-		}
+	checkPasswords(): boolean {
+		this.passwordsMatch.formSubmitted = true;
+		const password = this.registerForm.get('password')?.value;
+		const confirmPassword = this.registerForm.get('confirmPassword')?.value;
+
+		const same = password === confirmPassword ? true : false;
+		this.passwordsMatch.passwordsSame = same;
+		return same;
 	}
 }

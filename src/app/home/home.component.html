@@ -11,6 +11,6 @@
 	</div>
 
 	<div *ngIf="registerMode" class="grid grid-cols-1 justify-center items-center w-1/2">
-		<app-register [usersList]="users" (cancelRegister)="registerCancle($event)"></app-register>
+		<app-register (cancelRegister)="registerCancle($event)"></app-register>
 	</div>
 </div>

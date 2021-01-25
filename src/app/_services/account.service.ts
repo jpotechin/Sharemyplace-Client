@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { User } from './../interface/account.interface';
+import { SignInAndUp, User } from './../interface/account.interface';
 
 @Injectable({
 	providedIn: 'root',
@@ -14,7 +14,7 @@ export class AccountService {
 
 	constructor(private http: HttpClient) {}
 
-	login(model: any): Observable<any> {
+	login(model: SignInAndUp): Observable<any> {
 		return this.http.post<User>(this.baseUrl + 'account/login', model).pipe(
 			map((response) => {
 				const user = response;
@@ -22,6 +22,19 @@ export class AccountService {
 					localStorage.setItem('user', JSON.stringify(user));
 					this.currentUserSource.next(user);
 				}
+				return user;
+			})
+		);
+	}
+
+	register(model: SignInAndUp): Observable<any> {
+		return this.http.post<User>(this.baseUrl + 'account/register', model).pipe(
+			map((user) => {
+				if (user) {
+					localStorage.setItem('user', JSON.stringify(user));
+					this.currentUserSource.next(user);
+				}
+				return user;
 			})
 		);
 	}
