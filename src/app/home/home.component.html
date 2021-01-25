@@ -1,0 +1,16 @@
+<div class="container mx-auto flex flex-wrap justify-center items-center h-screen">
+	<div *ngIf="!registerMode" class="grid grid-cols-1 justify-center items-center">
+		<h1 class="text-center">Find your new Place</h1>
+		<p class="text-center">Find your next roomates</p>
+		<button
+			class="rounded bg-blue-500 hover:bg-blue-700 py-2 px-4 text-white w-1/2 justify-self-center"
+			(click)="registerToggle()"
+		>
+			Sign Up
+		</button>
+	</div>
+
+	<div *ngIf="registerMode" class="grid grid-cols-1 justify-center items-center w-1/2">
+		<app-register (cancelRegister)="registerCancle($event)"></app-register>
+	</div>
+</div>
