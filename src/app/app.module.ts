@@ -4,8 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule } from 'ngx-toastr';
 
+import { SharedModule } from './_modules/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -15,7 +15,6 @@ import { MemberListComponent } from './members/member-list/member-list.component
 import { MessagesComponent } from './messages/messages.component';
 import { NavComponent } from './nav/nav.component';
 import { RegisterComponent } from './register/register.component';
-
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -34,9 +33,7 @@ import { RegisterComponent } from './register/register.component';
 		FormsModule,
 		HttpClientModule,
 		ReactiveFormsModule,
-		ToastrModule.forRoot({
-			positionClass: 'toast-bottom-right',
-		}),
+		SharedModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent],
