@@ -1,9 +1,36 @@
 <nav class="grid grid-flow-col shadow-md mx-auto my-auto py-3 align-middle">
-	<div class="flex flex-row justify-center items-center">Share My Place</div>
+	<div class="flex flex-row justify-center items-center">
+		<h3>
+			<a routerLink="/" class="text-black hover:text-gray-400 hover:no-underline visited:text-black">Share My Place</a>
+		</h3>
+	</div>
 	<div class="flex flex-row justify-between items-center pr-3">
-		<div><a href="">Matches</a></div>
-		<div><a href="">Places</a></div>
-		<div><a href="">Messages</a></div>
+		<ng-container *ngIf="this.accountService.currentUser$ | async">
+			<div>
+				<a
+					routerLink="/members"
+					routerLinkActive="active"
+					class="text-black hover:text-gray-400 hover:no-underline visited:text-black"
+					>Matches</a
+				>
+			</div>
+			<div>
+				<a
+					routerLink="/lists"
+					routerLinkActive="active"
+					class="text-black hover:text-gray-400 hover:no-underline visited:text-black"
+					>Places</a
+				>
+			</div>
+			<div>
+				<a
+					routerLink="/messages"
+					routerLinkActive="active"
+					class="text-black hover:text-gray-400 hover:no-underline visited:text-black"
+					>Messages</a
+				>
+			</div>
+		</ng-container>
 	</div>
 	<div *ngIf="(this.accountService.currentUser$ | async) === null">
 		<form
@@ -38,7 +65,7 @@
 			</div>
 		</form>
 	</div>
-	<div *ngIf="this.accountService.currentUser$ | async" class="flex flex-row justify-end pr-3">
+	<div *ngIf="this.accountService.currentUser$ | async as user" class="flex flex-row justify-end pr-3">
 		<!-- This example requires Tailwind CSS v2.0+ -->
 		<div class="relative inline-block text-left">
 			<div>
@@ -50,7 +77,7 @@
 					aria-expanded="true"
 					(click)="showOptions()"
 				>
-					<span *ngIf="currentUser">Welcome {{ currentUser.username }} </span>
+					<span *ngIf="currentUser">Welcome {{ user.username | titlecase }} </span>
 					<span *ngIf="!currentUser">Welcome </span>
 					<!-- Heroicon name: chevron-down -->
 					<svg

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { error } from 'protractor';
 import { AccountService } from './../_services/account.service';
 
@@ -30,7 +31,7 @@ export class RegisterComponent implements OnInit {
 		confirmPassword: ['', [Validators.required, Validators.minLength(5)]],
 	});
 
-	constructor(private accountService: AccountService, private fb: FormBuilder) {}
+	constructor(private accountService: AccountService, private fb: FormBuilder, private toastr: ToastrService) {}
 
 	ngOnInit(): void {}
 
@@ -64,9 +65,11 @@ export class RegisterComponent implements OnInit {
 
 				(err) => {
 					console.error('Register Error: ', err);
+					this.toastr.error(err.error);
 				}
 			);
 		} else {
+			this.toastr.error('Password does not match');
 		}
 	}
 
