@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { error } from 'protractor';
-import { Observable } from 'rxjs';
 import { User } from '../interface/account.interface';
 import { AccountService } from './../_services/account.service';
 
@@ -15,7 +15,7 @@ export class NavComponent implements OnInit {
 	showOptionsMenu = false;
 	currentUser: User | null | undefined;
 
-	constructor(public accountService: AccountService, private router: Router) {}
+	constructor(public accountService: AccountService, private router: Router, private toastr: ToastrService) {}
 
 	ngOnInit(): void {
 		this.accountService.currentUser$.subscribe((user) => (this.currentUser = user));
@@ -29,6 +29,7 @@ export class NavComponent implements OnInit {
 			},
 			(err) => {
 				console.error(err);
+				this.toastr.error(err.error);
 			}
 		);
 	}
