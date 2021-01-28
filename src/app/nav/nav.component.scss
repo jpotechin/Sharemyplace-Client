@@ -1,0 +1,9 @@
+nav {
+	background-color: var(--primary-white);
+
+	.active {
+		border-top: blue;
+		--tw-text-opacity: 1;
+		color: rgba(79, 70, 229, var(--tw-text-opacity));
+	}
+}
