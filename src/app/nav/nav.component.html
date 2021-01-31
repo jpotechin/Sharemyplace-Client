@@ -31,6 +31,14 @@
 				>
 			</div>
 		</ng-container>
+		<div>
+			<a
+				routerLink="/errors"
+				routerLinkActive="active"
+				class="text-black hover:text-gray-400 hover:no-underline visited:text-black"
+				>Test Errors</a
+			>
+		</div>
 	</div>
 	<div *ngIf="(this.accountService.currentUser$ | async) === null">
 		<form

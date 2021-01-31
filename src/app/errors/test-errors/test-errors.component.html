@@ -1,0 +1,17 @@
+<div class="flex flex-wrap justify-center items-center h-screen">
+	<ng-container>
+		<button class="rounded bg-blue-500 hover:bg-blue-700 py-2 px-4 text-white mr-2" (click)="get500Error()">
+			Test 500
+		</button>
+		<button class="rounded bg-blue-500 hover:bg-blue-700 py-2 px-4 text-white mr-2" (click)="get400Error()">
+			Test 400
+		</button>
+		<button class="rounded bg-blue-500 hover:bg-blue-700 py-2 px-4 text-white mr-2" (click)="get401Error()">401</button>
+		<button class="rounded bg-blue-500 hover:bg-blue-700 py-2 px-4 text-white mr-2" (click)="get404Error()">
+			Test 404
+		</button>
+		<button class="rounded bg-blue-500 hover:bg-blue-700 py-2 px-4 text-white" (click)="get400ValidationError()">
+			Test Validation Error
+		</button>
+	</ng-container>
+</div>
