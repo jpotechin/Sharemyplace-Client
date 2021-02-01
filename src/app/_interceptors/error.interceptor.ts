@@ -1,17 +1,23 @@
+/* tslint:disable */
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
+import { Injectable, isDevMode } from '@angular/core';
+import { NavigationEnd, NavigationExtras, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { error } from 'protractor';
 import { throwError, Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, filter } from 'rxjs/operators';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-	constructor(private router: Router, private toastr: ToastrService) {}
+	developerMode: boolean;
+	constructor(private router: Router, private toastr: ToastrService) {
+		this.developerMode = isDevMode();
+		console.log('Is dev mode? ', this.developerMode);
+	}
 
 	intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 		return next.handle(request).pipe(
+			// @ts-ignore
 			catchError((err) => {
 				if (err) {
 					switch (err.status) {
@@ -23,7 +29,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 										modelStateErrors.push(err.error.errors[key]);
 									}
 								}
-								throw modelStateErrors;
+								throw modelStateErrors.flat();
 							} else {
 								this.toastr.error(err.statusText, err.status);
 							}
@@ -35,8 +41,13 @@ export class ErrorInterceptor implements HttpInterceptor {
 							this.router.navigateByUrl('/not-found');
 							break;
 						case 500:
+							console.log();
 							const navigationExtras: NavigationExtras = { state: { error: err.error } };
-							this.router.navigateByUrl('/server-error', navigationExtras);
+							if (this.developerMode) {
+								this.router.navigateByUrl('/server-error', navigationExtras);
+							} else {
+								this.toastr.error('Something happend with the server. Try again soon.');
+							}
 							break;
 						default:
 							this.toastr.error('Something unexpected went wrong');

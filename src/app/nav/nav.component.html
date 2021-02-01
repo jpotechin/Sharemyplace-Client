@@ -31,12 +31,12 @@
 				>
 			</div>
 		</ng-container>
-		<div>
+		<div *ngIf="isErrorLinksVisible">
 			<a
 				routerLink="/errors"
 				routerLinkActive="active"
 				class="text-black hover:text-gray-400 hover:no-underline visited:text-black"
-				>Test Errors</a
+				>Errors Testing</a
 			>
 		</div>
 	</div>
@@ -128,6 +128,14 @@
 					<button
 						class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
 						role="menuitem"
+						(click)="showErrorLinks()"
+						*ngIf="devEnv"
+					>
+						<span *ngIf="isErrorLinksVisible; then visableErrorLinks; else hiddenErrorLinks"></span> Error Test
+					</button>
+					<button
+						class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
+						role="menuitem"
 						(click)="logout()"
 					>
 						Sign out
@@ -137,3 +145,11 @@
 		</div>
 	</div>
 </nav>
+
+<ng-template #visableErrorLinks>
+	<span>Disable</span>
+</ng-template>
+
+<ng-template #hiddenErrorLinks>
+	<span>Enable</span>
+</ng-template>
