@@ -6,7 +6,7 @@ import { Member } from './../interface/account.interface';
 
 const httpOptions = {
 	headers: new HttpHeaders({
-		Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('user') || '{}').token || '',
+		Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('user') || '{}')?.token,
 	}),
 };
 
@@ -19,5 +19,9 @@ export class MembersService {
 
 	getMembers(): Observable<Member[]> {
 		return this.http.get<Member[]>(this.baseUrl + 'users', httpOptions);
+	}
+
+	getMember(username: string): Observable<Member> {
+		return this.http.get<Member>(this.baseUrl + 'users/:' + username, httpOptions);
 	}
 }
