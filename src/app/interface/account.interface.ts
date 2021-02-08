@@ -9,23 +9,25 @@ export interface SignInAndUp {
 }
 
 export interface Member {
-	UserName: string;
-	Gender: string;
-	DateOfBirth: string;
-	KnownAs: string;
-	Created: Date;
-	LastActive: Date;
-	Introduction: string;
-	LookingFor: string;
-	Interests: string;
-	City: string;
-	State: string;
-	OwnerRenter: boolean;
-	Photos: Photo[];
+	id: number;
+	username: string;
+	photoUrl: string;
+	gender: string;
+	age: number;
+	knownAs: string;
+	created: string;
+	lastActive: string;
+	introduction: string;
+	lookingFor: string;
+	interests: string;
+	ownerRenter: boolean;
+	city: string;
+	state: string;
+	photos: Photo[];
 }
 
 export interface Photo {
 	id: number;
-	Url: string;
-	IsMain: boolean;
+	url: string;
+	isMain: boolean;
 }
