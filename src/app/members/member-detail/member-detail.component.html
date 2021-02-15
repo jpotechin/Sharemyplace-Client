@@ -1,6 +1,6 @@
 <div *ngIf="member" class="mx-2 mt-2">
 	<div class="grid grid-cols-12 grid-rows-1 grid-flow-col">
-		<div class="col-span-3 pt-2 border-solid border-2">
+		<div class="col-span-3 pt-2 border-solid border-2 container">
 			<!-- <div class="grid grid-rows-3 auto-rows-min gap-0"> -->
 			<div class="flex- flex-row flex-wrap container">
 				<div><img class="w-full h-56 object-cover object-center" src="{{ member.photoUrl }}" alt="avatar" /></div>
@@ -28,6 +28,66 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-span-9">Test 2</div>
+		<div class="col-span-9">
+			<div class="flex flex-wrap container">
+				<div class="w-full">
+					<ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
+						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+							<a
+								class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal"
+								(click)="toggleTabs(1)"
+								[ngClass]="{ 'text-pink-600 bg-white': openTab !== 1, 'text-white bg-pink-600': openTab === 1 }"
+							>
+								<i class="fas fa-space-shuttle text-base mr-1"></i> About {{ member.knownAs }}
+							</a>
+						</li>
+						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+							<a
+								class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal"
+								(click)="toggleTabs(2)"
+								[ngClass]="{ 'text-pink-600 bg-white': openTab !== 2, 'text-white bg-pink-600': openTab === 2 }"
+							>
+								<i class="fas fa-cog text-base mr-1"></i> Interests
+							</a>
+						</li>
+						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+							<a
+								class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal"
+								(click)="toggleTabs(3)"
+								[ngClass]="{ 'text-pink-600 bg-white': openTab !== 3, 'text-white bg-pink-600': openTab === 3 }"
+							>
+								<i class="fas fa-briefcase text-base mr-1"></i> Photos
+							</a>
+						</li>
+						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+							<a
+								class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal"
+								(click)="toggleTabs(4)"
+								[ngClass]="{ 'text-pink-600 bg-white': openTab !== 4, 'text-white bg-pink-600': openTab === 4 }"
+							>
+								<i class="fas fa-briefcase text-base mr-1"></i> Messages
+							</a>
+						</li>
+					</ul>
+					<div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+						<div class="px-4 py-5 flex-auto">
+							<div class="tab-content tab-space">
+								<div [ngClass]="{ hidden: openTab !== 1, block: openTab === 1 }">
+									<h3>Description</h3>
+									{{ member.introduction }}
+									<h3 class="pt-3">Looking For</h3>
+									{{ member.lookingFor }}
+								</div>
+								<div [ngClass]="{ hidden: openTab !== 2, block: openTab === 2 }">
+									{{ member.interests }}
+								</div>
+								<div [ngClass]="{ hidden: openTab !== 3, block: openTab === 3 }">Photos</div>
+								<div [ngClass]="{ hidden: openTab !== 4, block: openTab === 4 }">Messages</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>

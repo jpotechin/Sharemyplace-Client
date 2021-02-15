@@ -11,6 +11,7 @@ import { Member } from './../../interface/account.interface';
 })
 export class MemberDetailComponent implements OnInit {
 	member!: Member;
+	openTab = 1;
 
 	constructor(private memberService: MembersService, private route: ActivatedRoute) {}
 
@@ -24,13 +25,8 @@ export class MemberDetailComponent implements OnInit {
 			this.member = member;
 		});
 	}
-	// loadMember(): void {
-	// 	const username = this.route.snapshot.paramMap.get('username');
-	// 	if (username) {
-	// 		this.memberService.getMember(username).subscribe((selectedMember) => {
-	// 			console.log('Member', selectedMember);
-	// 			this.member = selectedMember;
-	// 		});
-	// 	}
-	// }
+
+	public toggleTabs($tabNumber: number): void {
+		this.openTab = $tabNumber;
+	}
 }
