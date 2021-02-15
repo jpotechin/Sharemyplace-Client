@@ -1,7 +1,11 @@
 <div class="max-w-sm shadow-lg rounded-lg overflow-hidden h-full member-card">
 	<div class="h-full">
 		<div class="card-image-wrapper">
-			<img class="w-full h-56 object-cover object-center" src="{{ member.photoUrl }}" alt="avatar" />
+			<img
+				class="w-full h-56 object-cover object-center"
+				src="{{ member.photoUrl || './assets/img/user.png' }}"
+				alt="avatar"
+			/>
 			<ul class="list-none member-icons animate text-center flex justify-between mx-3">
 				<li class="inline">
 					<button class="text-white font-bold uppercase px-2 py1" routerLink="/members/{{ member.username }}">

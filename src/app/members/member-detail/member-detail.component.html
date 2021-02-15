@@ -3,7 +3,13 @@
 		<div class="col-span-3 pt-2 border-solid border-2 container">
 			<!-- <div class="grid grid-rows-3 auto-rows-min gap-0"> -->
 			<div class="flex- flex-row flex-wrap container">
-				<div><img class="w-full h-56 object-cover object-center" src="{{ member.photoUrl }}" alt="avatar" /></div>
+				<div>
+					<img
+						class="w-full h-56 object-cover object-center"
+						src="{{ member.photoUrl || './assets/img/user.png' }}"
+						alt="avatar"
+					/>
+				</div>
 				<div>
 					<div>
 						<h1 class="text-sm font-semibold text-gray-800">Location:</h1>
@@ -81,7 +87,9 @@
 								<div [ngClass]="{ hidden: openTab !== 2, block: openTab === 2 }">
 									{{ member.interests }}
 								</div>
-								<div [ngClass]="{ hidden: openTab !== 3, block: openTab === 3 }">Photos</div>
+								<div [ngClass]="{ hidden: openTab !== 3, block: openTab === 3 }">
+									<ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
+								</div>
 								<div [ngClass]="{ hidden: openTab !== 4, block: openTab === 4 }">Messages</div>
 							</div>
 						</div>
