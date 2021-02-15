@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
+import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedModule } from './_modules/shared.module';
@@ -15,6 +16,7 @@ import { ServerErrorComponent } from './errors/server-error/server-error.compone
 import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
 import { HomeComponent } from './home/home.component';
 import { ListsComponent } from './lists/lists.component';
+import { MemberCardComponent } from './members/member-card/member-card.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberListComponent } from './members/member-list/member-list.component';
 import { MessagesComponent } from './messages/messages.component';
@@ -33,6 +35,7 @@ import { RegisterComponent } from './register/register.component';
 		TestErrorsComponent,
 		NotFoundComponent,
 		ServerErrorComponent,
+		MemberCardComponent,
 	],
 	imports: [
 		AppRoutingModule,
@@ -48,6 +51,11 @@ import { RegisterComponent } from './register/register.component';
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: ErrorInterceptor,
+			multi: true,
+		},
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: JwtInterceptor,
 			multi: true,
 		},
 	],
