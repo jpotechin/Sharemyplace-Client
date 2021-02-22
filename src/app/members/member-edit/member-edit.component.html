@@ -1,0 +1,150 @@
+<div *ngIf="member" class="mx-5 mt-4 w-auto">
+	<div class="grid grid-cols-12">
+		<div class="col-span-3"><h1>Your Profile</h1></div>
+		<div class="col-span-9 mx-3">
+			<div
+				class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+				role="alert"
+				*ngIf="editForm.dirty"
+			>
+				<strong class="font-bold">Information: </strong>
+				<span class="block sm:inline">You have made changes. Any unsave changes will be lost.</span>
+				<!-- <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+					<svg
+						class="fill-current h-6 w-6 text-red-500"
+						role="button"
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 20 20"
+					>
+						<title>Close</title>
+						<path
+							d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"
+						/>
+					</svg>
+				</span> -->
+			</div>
+		</div>
+		<!-- Sidebar -->
+		<div class="col-span-3 pt-2 border-solid border-2 container">
+			<div class="flex- flex-row flex-wrap container">
+				<div>
+					<img
+						class="w-full h-56 object-contain object-center"
+						src="{{ member.photoUrl || './assets/img/user.png' }}"
+						alt="avatar"
+					/>
+				</div>
+				<div>
+					<div>
+						<h1 class="text-sm font-semibold text-gray-800">Location:</h1>
+						<p class="text-sm">{{ member.city }}, {{ member.state }}</p>
+					</div>
+					<div>
+						<h1 class="text-sm font-semibold text-gray-800">Age:</h1>
+						<p class="text-sm">{{ member.age }}</p>
+					</div>
+					<div>
+						<h1 class="text-sm font-semibold text-gray-800">Last Active:</h1>
+						<p class="text-sm">{{ member.lastActive }}</p>
+					</div>
+					<div>
+						<h1 class="text-sm font-semibold text-gray-800">Last Active:</h1>
+						<p class="text-sm">{{ member.created }}</p>
+					</div>
+				</div>
+				<div class="flex flex-row justify-center">
+					<button class="message-button bg-green-500 w-50" form="editForm" type="submit" [disabled]="!editForm.dirty">
+						Save Changes
+					</button>
+				</div>
+			</div>
+		</div>
+		<!-- Main Content -->
+		<div class="col-span-9">
+			<div class="flex flex-wrap container">
+				<div class="w-full">
+					<ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
+						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+							<a
+								class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal"
+								(click)="toggleTabs(1)"
+								[ngClass]="{ 'text-pink-600 bg-white': openTab !== 1, 'text-white bg-pink-600': openTab === 1 }"
+							>
+								<i class="fas fa-space-shuttle text-base mr-1"></i> Edit Profile
+							</a>
+						</li>
+						<li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+							<a
+								class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal"
+								(click)="toggleTabs(2)"
+								[ngClass]="{ 'text-pink-600 bg-white': openTab !== 2, 'text-white bg-pink-600': openTab === 2 }"
+							>
+								<i class="fas fa-cog text-base mr-1"></i> Edit Photos
+							</a>
+						</li>
+					</ul>
+					<div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+						<div class="px-4 pt-1 pb-5 flex-auto">
+							<div class="tab-content tab-space">
+								<div [ngClass]="{ hidden: openTab !== 1, block: openTab === 1 }">
+									<form #editForm="ngForm" (ngSubmit)="updateMember()" id="editForm" class="grid gird-rows-4">
+										<ng-container>
+											<h4>Description</h4>
+											<textarea
+												[(ngModel)]="member.introduction"
+												name="introduction"
+												rows="4"
+												class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
+											></textarea>
+										</ng-container>
+										<ng-container>
+											<h4 class="mt-2">Looking for</h4>
+											<textarea
+												[(ngModel)]="member.lookingFor"
+												name="lookingFor"
+												rows="4"
+												class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
+											></textarea>
+										</ng-container>
+										<ng-container>
+											<h4 class="mt-2">Interests</h4>
+											<textarea
+												[(ngModel)]="member.interests"
+												name="interests"
+												rows="4"
+												class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
+											></textarea>
+										</ng-container>
+
+										<div class="grid grid-row-3 mt-2">
+											<h4>Location Details</h4>
+											<ng-container>
+												<label for="city">City</label>
+												<input
+													type="text"
+													name="city"
+													[(ngModel)]="member.city"
+													class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
+												/>
+											</ng-container>
+											<ng-container>
+												<label for="country">State</label>
+												<input
+													type="text"
+													name="state"
+													[(ngModel)]="member.state"
+													class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md"
+												/>
+											</ng-container>
+										</div>
+									</form>
+								</div>
+								<div [ngClass]="{ hidden: openTab !== 2, block: openTab === 2 }">Edit Photos</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

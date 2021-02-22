@@ -115,7 +115,7 @@
         To: "transform opacity-0 scale-95"
     -->
 			<div
-				class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
+				class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 drop-down-nav"
 				*ngIf="showOptionsMenu"
 			>
 				<div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
@@ -124,6 +124,13 @@
 						class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
 						role="menuitem"
 						>Profile</a
+					>
+					<a
+						[routerLink]="['/member/edit']"
+						routerLinkActive="router-link-active"
+						class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+						role="menuitem"
+						>Edit Profile</a
 					>
 					<button
 						class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
