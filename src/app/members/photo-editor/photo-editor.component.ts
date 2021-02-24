@@ -80,4 +80,10 @@ export class PhotoEditorComponent implements OnInit {
 			});
 		});
 	}
+
+	public deletePhoto(photoId: number): void {
+		this.memberService.deletePhoto(photoId).subscribe(() => {
+			this.member.photos = this.member.photos.filter((pic) => pic.id !== photoId);
+		});
+	}
 }
