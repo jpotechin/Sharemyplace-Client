@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { FileUploadModule } from 'ng2-file-upload';
 import { ToastrModule } from 'ngx-toastr';
 @NgModule({
 	declarations: [],
@@ -10,7 +11,8 @@ import { ToastrModule } from 'ngx-toastr';
 			positionClass: 'toast-bottom-right',
 		}),
 		NgxGalleryModule,
+		FileUploadModule,
 	],
-	exports: [ToastrModule, NgxGalleryModule],
+	exports: [ToastrModule, NgxGalleryModule, FileUploadModule],
 })
 export class SharedModule {}
