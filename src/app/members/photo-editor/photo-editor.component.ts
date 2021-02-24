@@ -2,9 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { faBan, faTrashAlt, faUpload } from '@fortawesome/free-solid-svg-icons';
 import { FileUploader } from 'ng2-file-upload';
 import { take } from 'rxjs/operators';
-import { Member, User } from 'src/app/interface/account.interface';
+import { IMember, IPhoto, IUser } from 'src/app/interface/account.interface';
 import { environment } from 'src/environments/environment';
 import { AccountService } from './../../_services/account.service';
+import { MembersService } from './../../_services/members.service';
 
 @Component({
 	selector: 'app-photo-editor',
@@ -12,7 +13,7 @@ import { AccountService } from './../../_services/account.service';
 	styleUrls: ['./photo-editor.component.scss'],
 })
 export class PhotoEditorComponent implements OnInit {
-	@Input() member!: Member;
+	@Input() member!: IMember;
 	trashIcon = faTrashAlt;
 	uploadIcon = faUpload;
 	banIcon = faBan;
@@ -21,9 +22,9 @@ export class PhotoEditorComponent implements OnInit {
 	hasAnotherDropZoneOver = false;
 	hasBaseDropZoneOver = false;
 	baseUrl = environment.apiUrl;
-	user: User | null = null;
+	user: IUser | null = null;
 
-	constructor(private accountService: AccountService) {
+	constructor(private accountService: AccountService, private memberService: MembersService) {
 		this.accountService.currentUser$.pipe(take(1)).subscribe((user) => (this.user = user));
 	}
 
@@ -60,5 +61,23 @@ export class PhotoEditorComponent implements OnInit {
 
 	public fileOverAnother(e: any): void {
 		this.hasAnotherDropZoneOver = e;
+	}
+
+	public setMainPhoto(photo: IPhoto): void {
+		this.memberService.setMainPhoto(photo.id).subscribe(() => {
+			if (this.user) {
+				this.user.photoUrl = photo.url;
+			}
+			this.accountService.setCurrentUser(this.user);
+			this.member.photoUrl = photo.url;
+			this.member.photos.forEach((p) => {
+				if (p.isMain) {
+					p.isMain = false;
+				}
+				if (p.id === photo.id) {
+					p.isMain = true;
+				}
+			});
+		});
 	}
 }

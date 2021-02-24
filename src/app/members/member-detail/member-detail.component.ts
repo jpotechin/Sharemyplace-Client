@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { MembersService } from './../../_services/members.service';
-import { Member } from './../../interface/account.interface';
+import { IMember } from './../../interface/account.interface';
 
 @Component({
 	selector: 'app-member-detail',
@@ -10,7 +10,7 @@ import { Member } from './../../interface/account.interface';
 	styleUrls: ['./member-detail.component.scss'],
 })
 export class MemberDetailComponent implements OnInit {
-	member!: Member;
+	member!: IMember;
 	openTab = 1;
 	galleryOptions!: NgxGalleryOptions[];
 	galleryImages!: NgxGalleryImage[];

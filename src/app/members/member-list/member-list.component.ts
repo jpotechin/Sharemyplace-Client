@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MembersService } from './../../_services/members.service';
-import { Member } from './../../interface/account.interface';
+import { IMember } from './../../interface/account.interface';
 
 @Component({
 	selector: 'app-member-list',
@@ -9,7 +9,7 @@ import { Member } from './../../interface/account.interface';
 	styleUrls: ['./member-list.component.scss'],
 })
 export class MemberListComponent implements OnInit {
-	members$!: Observable<Member[]>;
+	members$!: Observable<IMember[]>;
 
 	constructor(private memberService: MembersService) {}
 

@@ -1,15 +1,15 @@
-export interface User {
+export interface IUser {
 	token: string;
 	username: string;
 	photoUrl: string;
 }
 
-export interface SignInAndUp {
+export interface ISignInAndUp {
 	username: string;
 	password: string;
 }
 
-export interface Member {
+export interface IMember {
 	id: number;
 	username: string;
 	photoUrl: string;
@@ -24,10 +24,10 @@ export interface Member {
 	ownerRenter: boolean;
 	city: string;
 	state: string;
-	photos: Photo[];
+	photos: IPhoto[];
 }
 
-export interface Photo {
+export interface IPhoto {
 	id: number;
 	url: string;
 	isMain: boolean;

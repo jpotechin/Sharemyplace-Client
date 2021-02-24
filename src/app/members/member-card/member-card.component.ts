@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { faEnvelope, faThumbsUp, faUser } from '@fortawesome/free-solid-svg-icons';
-import { Member } from './../../interface/account.interface';
+import { IMember } from './../../interface/account.interface';
 
 @Component({
 	selector: 'app-member-card',
@@ -8,7 +8,7 @@ import { Member } from './../../interface/account.interface';
 	styleUrls: ['./member-card.component.scss'],
 })
 export class MemberCardComponent implements OnInit {
-	@Input() member!: Member;
+	@Input() member!: IMember;
 
 	userIcon = faUser;
 	thumbsUpIcon = faThumbsUp;

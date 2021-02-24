@@ -3,20 +3,20 @@ import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { SignInAndUp, User } from './../interface/account.interface';
+import { ISignInAndUp, IUser } from './../interface/account.interface';
 
 @Injectable({
 	providedIn: 'root',
 })
 export class AccountService {
 	baseUrl = environment.apiUrl;
-	private currentUserSource = new ReplaySubject<User | null>(1);
+	private currentUserSource = new ReplaySubject<IUser | null>(1);
 	currentUser$ = this.currentUserSource.asObservable();
 
 	constructor(private http: HttpClient) {}
 
-	login(model: SignInAndUp): Observable<any> {
-		return this.http.post<User>(this.baseUrl + 'account/login', model).pipe(
+	login(model: ISignInAndUp): Observable<any> {
+		return this.http.post<IUser>(this.baseUrl + 'account/login', model).pipe(
 			map((response) => {
 				const user = response;
 				if (user) {
@@ -27,8 +27,8 @@ export class AccountService {
 		);
 	}
 
-	register(model: SignInAndUp): Observable<any> {
-		return this.http.post<User>(this.baseUrl + 'account/register', model).pipe(
+	register(model: ISignInAndUp): Observable<any> {
+		return this.http.post<IUser>(this.baseUrl + 'account/register', model).pipe(
 			map((user) => {
 				if (user) {
 					this.setCurrentUser(user);
@@ -38,7 +38,7 @@ export class AccountService {
 		);
 	}
 
-	setCurrentUser(user: User | null): void {
+	setCurrentUser(user: IUser | null): void {
 		localStorage.setItem('user', JSON.stringify(user));
 		this.currentUserSource.next(user);
 	}
