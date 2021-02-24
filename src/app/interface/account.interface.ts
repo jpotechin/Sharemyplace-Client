@@ -1,6 +1,7 @@
 export interface User {
 	token: string;
 	username: string;
+	photoUrl: string;
 }
 
 export interface SignInAndUp {
