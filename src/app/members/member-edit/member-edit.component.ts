@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs/operators';
-import { Member, User } from 'src/app/interface/account.interface';
+import { IMember, IUser } from 'src/app/interface/account.interface';
 import { AccountService } from './../../_services/account.service';
 import { MembersService } from './../../_services/members.service';
 
@@ -13,8 +13,8 @@ import { MembersService } from './../../_services/members.service';
 	styleUrls: ['./member-edit.component.scss'],
 })
 export class MemberEditComponent implements OnInit {
-	member!: Member;
-	user: User | null = null;
+	member!: IMember;
+	user: IUser | null = null;
 	openTab = 1;
 	galleryOptions: NgxGalleryOptions[] | undefined;
 	galleryImages: NgxGalleryImage[] | undefined;

@@ -73,9 +73,10 @@
 			</div>
 		</form>
 	</div>
-	<div *ngIf="this.accountService.currentUser$ | async as user" class="flex flex-row justify-end pr-3">
+	<div *ngIf="this.accountService.currentUser$ | async as user" class="flex flex-row justify-end align-bottom pr-3">
 		<!-- This example requires Tailwind CSS v2.0+ -->
-		<div class="relative inline-block text-left">
+		<img src="{{ user.photoUrl }}" alt="{{ user.username }}" />
+		<div class="relative inline-block text-left pl-3 self-end">
 			<div>
 				<button
 					type="button"

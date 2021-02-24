@@ -1,8 +1,7 @@
 import { isDevMode, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { error } from 'protractor';
-import { User } from '../interface/account.interface';
+import { IUser } from '../interface/account.interface';
 import { AccountService } from './../_services/account.service';
 
 @Component({
@@ -13,7 +12,7 @@ import { AccountService } from './../_services/account.service';
 export class NavComponent implements OnInit {
 	model: any = {};
 	showOptionsMenu = false;
-	currentUser: User | null | undefined;
+	currentUser: IUser | null | undefined;
 	isErrorLinksVisible = false;
 	devEnv: boolean | undefined;
 
@@ -27,7 +26,7 @@ export class NavComponent implements OnInit {
 
 	login(): void {
 		this.checkIfMisingLoginInfo(this.model);
-		this.accountService.login(this.model).subscribe((response: User) => {
+		this.accountService.login(this.model).subscribe((response: IUser) => {
 			this.model = {};
 			this.router.navigateByUrl('/members');
 		});

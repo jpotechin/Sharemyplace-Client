@@ -139,7 +139,9 @@
 										</div>
 									</form>
 								</div>
-								<div [ngClass]="{ hidden: openTab !== 2, block: openTab === 2 }">Edit Photos</div>
+								<div [ngClass]="{ hidden: openTab !== 2, block: openTab === 2 }">
+									<app-photo-editor [member]="member"></app-photo-editor>
+								</div>
 							</div>
 						</div>
 					</div>

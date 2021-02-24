@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AccountService } from './_services/account.service';
-import { User } from './interface/account.interface';
+import { IUser } from './interface/account.interface';
 
-interface Users {
+interface IUsers {
 	id: number;
 	userName: string;
 }
@@ -14,7 +14,7 @@ interface Users {
 })
 export class AppComponent implements OnInit {
 	title = 'Share My Place';
-	users: Users[] | [];
+	users: IUsers[] | [];
 
 	constructor(private accountService: AccountService) {
 		this.users = [];
@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
 
 	setCurrentUser(): void {
 		const userJson = localStorage.getItem('user');
-		const user: User | null = userJson !== null ? JSON.parse(userJson) : null;
+		const user: IUser | null = userJson !== null ? JSON.parse(userJson) : null;
 		this.accountService.setCurrentUser(user);
 	}
 }
