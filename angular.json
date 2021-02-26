@@ -96,7 +96,11 @@
 						"tsConfig": "tsconfig.spec.json",
 						"karmaConfig": "karma.conf.js",
 						"assets": ["src/favicon.ico", "src/assets"],
-						"styles": ["./node_modules/bootstrap/dist/css/bootstrap.min.css", "src/styles.scss"],
+						"styles": [
+							"./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+							"./node_modules/bootstrap/dist/css/bootstrap.min.css",
+							"src/styles.scss"
+						],
 						"scripts": [],
 						"customWebpackConfig": {
 							"path": "webpack.config.js"

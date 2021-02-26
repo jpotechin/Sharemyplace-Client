@@ -10,6 +10,7 @@ import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from './_modules/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,10 +23,10 @@ import { MemberCardComponent } from './members/member-card/member-card.component
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { MemberListComponent } from './members/member-list/member-list.component';
+import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 import { MessagesComponent } from './messages/messages.component';
 import { NavComponent } from './nav/nav.component';
 import { RegisterComponent } from './register/register.component';
-import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -53,6 +54,7 @@ import { PhotoEditorComponent } from './members/photo-editor/photo-editor.compon
 		ReactiveFormsModule,
 		SharedModule,
 		FontAwesomeModule,
+		NgbModule,
 	],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 	providers: [

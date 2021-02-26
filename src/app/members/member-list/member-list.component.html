@@ -11,3 +11,15 @@
 		<app-member-card [member]="member"></app-member-card>
 	</div>
 </div>
+<div class="flex flex-row justify-center align-middle" *ngIf="pagination">
+	<ngb-pagination
+		[collectionSize]="pagination.totalItems"
+		[(page)]="pageNumber"
+		[maxSize]="pagination.totalPages"
+		[pageSize]="pagination.itemsPerPage"
+		(pageChange)="pageChanged($event)"
+		[rotate]="true"
+		[ellipses]="false"
+		[boundaryLinks]="true"
+	></ngb-pagination>
+</div>
