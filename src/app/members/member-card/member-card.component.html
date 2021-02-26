@@ -25,7 +25,10 @@
 			</ul>
 		</div>
 		<div class="pl-1">
-			<h1 class="text-2xl font-semibold text-gray-800">{{ member.knownAs }}</h1>
+			<div class="flex flex-wrap justify-center align-middle items-center">
+				<h3 class="text-xl font-semibold text-gray-800">{{ member.knownAs }}</h3>
+				<h3 class="text-xl font-semibold text-gray-800 pl-3">Age: {{ member.age }}</h3>
+			</div>
 			<h1 class="text-sm font-semibold text-gray-800">{{ member.city }}, {{ member.state }}</h1>
 		</div>
 	</div>

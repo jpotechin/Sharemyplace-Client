@@ -21,7 +21,10 @@ export class NavComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.accountService.currentUser$.subscribe((user) => (this.currentUser = user));
+		this.accountService.currentUser$.subscribe((user) => {
+			this.currentUser = user;
+			console.log(user);
+		});
 	}
 
 	login(): void {

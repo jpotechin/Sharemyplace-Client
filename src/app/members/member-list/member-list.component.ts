@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { take } from 'rxjs/operators';
+import { AccountService } from './../../_services/account.service';
 import { MembersService } from './../../_services/members.service';
-import { IMember } from './../../interface/account.interface';
+import { IMember, IUser } from './../../interface/account.interface';
 import { IPagination } from './../../interface/pagination';
+import { UserParams } from './../../interface/userParams';
 
 @Component({
 	selector: 'app-member-list',
@@ -11,11 +14,22 @@ import { IPagination } from './../../interface/pagination';
 export class MemberListComponent implements OnInit {
 	members!: IMember[];
 	pagination!: IPagination;
-	pageNumber = 1;
-	pageSize = 5;
 	items: IMember[] | [] = [];
+	userParams!: UserParams;
+	user: IUser | null = null;
+	genderList = [
+		{ value: 'male', display: 'Males' },
+		{ value: 'female', display: 'Females' },
+	];
 
-	constructor(private memberService: MembersService) {}
+	constructor(private accountService: AccountService, private memberService: MembersService) {
+		this.accountService.currentUser$.pipe(take(1)).subscribe((user) => {
+			this.user = user;
+			if (user) {
+				this.userParams = new UserParams(user);
+			}
+		});
+	}
 
 	ngOnInit(): void {
 		this.loadMembers();
@@ -23,7 +37,7 @@ export class MemberListComponent implements OnInit {
 
 	loadMembers(): void {
 		this.memberService
-			.getMembers(this.pageNumber, this.pageSize)
+			.getMembers(this.userParams)
 			.subscribe((response: { result: IMember[]; pagination: IPagination }) => {
 				this.members = response.result;
 				this.items = response.result;
@@ -31,8 +45,15 @@ export class MemberListComponent implements OnInit {
 			});
 	}
 
+	resetFilters(): void {
+		if (this.user) {
+			this.userParams = new UserParams(this.user);
+			this.loadMembers();
+		}
+	}
+
 	pageChanged(eventPage: any): void {
-		this.pageNumber = eventPage;
+		this.userParams.pageNumber = eventPage;
 		this.loadMembers();
 	}
 }

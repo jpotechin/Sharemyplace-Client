@@ -2,6 +2,8 @@ export interface IUser {
 	token: string;
 	username: string;
 	photoUrl: string;
+	knownAs: string;
+	gender: string;
 }
 
 export interface ISignInAndUp {
