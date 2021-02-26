@@ -65,7 +65,6 @@ export class MemberEditComponent implements OnInit {
 
 	getImages(): NgxGalleryImage[] {
 		const imageUrls = [];
-		console.log(this.member);
 		if (this.member?.photos) {
 			for (const photo of this.member?.photos) {
 				imageUrls.push({
@@ -75,7 +74,6 @@ export class MemberEditComponent implements OnInit {
 				});
 			}
 		}
-		console.log(imageUrls);
 		return imageUrls;
 	}
 

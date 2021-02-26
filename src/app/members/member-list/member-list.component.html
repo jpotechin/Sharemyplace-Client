@@ -30,8 +30,13 @@
 				<option *ngFor="let gender of genderList" [value]="gender.value">{{ gender.display }}</option>
 			</select>
 		</div>
-		<button class="btn btn-primary ml-1" type="submit">Apply Filters</button>
-		<button class="btn btn-info ml-1" (click)="resetFilters()">Reset Filters</button>
+		<button class="btn btn-primary ml-1 form-control" type="submit">Apply Filters</button>
+		<button class="btn btn-info ml-1 form-control" (click)="resetFilters()">Reset Filters</button>
+
+		<div class="btn-group btn-group-toggle pl-5">
+			<button class="btn btn-primary" type="button" (click)="sortButton('lastActive')">Last Active</button>
+			<button class="btn btn-primary" type="button" (click)="sortButton('created')">Newest Member</button>
+		</div>
 	</form>
 </div>
 

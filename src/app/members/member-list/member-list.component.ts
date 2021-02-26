@@ -21,6 +21,7 @@ export class MemberListComponent implements OnInit {
 		{ value: 'male', display: 'Males' },
 		{ value: 'female', display: 'Females' },
 	];
+	model = 'lastActive';
 
 	constructor(private accountService: AccountService, private memberService: MembersService) {
 		this.accountService.currentUser$.pipe(take(1)).subscribe((user) => {
@@ -54,6 +55,11 @@ export class MemberListComponent implements OnInit {
 
 	pageChanged(eventPage: any): void {
 		this.userParams.pageNumber = eventPage;
+		this.loadMembers();
+	}
+
+	sortButton(selection: string): void {
+		this.userParams.orderBy = selection;
 		this.loadMembers();
 	}
 }
