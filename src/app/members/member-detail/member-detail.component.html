@@ -21,11 +21,12 @@
 					</div>
 					<div>
 						<h1 class="text-sm font-semibold text-gray-800">Last Active:</h1>
-						<p class="text-sm">{{ member.lastActive }}</p>
+						<p class="text-sm">{{ member.lastActive | timeago }}</p>
 					</div>
 					<div>
-						<h1 class="text-sm font-semibold text-gray-800">Last Active:</h1>
-						<p class="text-sm">{{ member.created }}</p>
+						<h1 class="text-sm font-semibold text-gray-800">Member Since:</h1>
+						<!-- <p class="text-sm">{{ member.created | date: 'mediumDate' }}</p> -->
+						<p class="text-sm">{{ member.created | date: 'MMM dd yyyy' }}</p>
 					</div>
 				</div>
 				<div class="grid grid-cols-2">

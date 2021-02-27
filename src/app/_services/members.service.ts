@@ -13,10 +13,16 @@ import { UserParams } from './../interface/userParams';
 export class MembersService {
 	baseUrl = environment.apiUrl;
 	members: IMember[] = [];
+	memberCache = new Map();
 
 	constructor(private http: HttpClient) {}
 
 	getMembers(userParams: UserParams): any {
+		const response = this.memberCache.get(Object.values(userParams).join('-'));
+
+		if (response) {
+			return of(response);
+		}
 		let params = this.getPaginationHeaders(userParams.pageNumber, userParams.pageSize);
 
 		params = params.append('minAge', userParams.minAge.toString());
@@ -24,7 +30,12 @@ export class MembersService {
 		params = params.append('gender', userParams.gender);
 		params = params.append('orderBy', userParams.orderBy);
 		const url = this.baseUrl + 'users';
-		return this.getPaginatedResult<IMember[]>(url, params);
+		return this.getPaginatedResult<IMember[]>(url, params).pipe(
+			map((res) => {
+				this.memberCache.set(Object.values(userParams).join('-'), res);
+				return res;
+			})
+		);
 	}
 
 	getMember(username: string): Observable<IMember> {

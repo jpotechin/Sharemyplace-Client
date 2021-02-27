@@ -11,6 +11,7 @@ import { LoadingInterceptor } from './_interceptors/loading.interceptor';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TimeagoModule } from 'ngx-timeago';
 import { SharedModule } from './_modules/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -55,6 +56,7 @@ import { RegisterComponent } from './register/register.component';
 		SharedModule,
 		FontAwesomeModule,
 		NgbModule,
+		TimeagoModule.forRoot(),
 	],
 	schemas: [CUSTOM_ELEMENTS_SCHEMA],
 	providers: [
