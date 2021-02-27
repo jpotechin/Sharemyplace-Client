@@ -1,1 +1,32 @@
-<p>lists works!</p>
+<div class="text-center mt-3">
+	<h2>{{ predicate === 'liked' ? 'Members I want as roomates' : 'Members who want me as roomates' }}</h2>
+</div>
+
+<div class="container mt-3">
+	<div class="row">
+		<div class="btn-group" name="predicate">
+			<div class="btn-group btn-group-toggle pl-5">
+				<button class="btn btn-primary" type="button" (click)="typeOfLikeButton('liked')">Liked</button>
+				<button class="btn btn-primary" type="button" (click)="typeOfLikeButton('likedBy')">Like Me</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="row mt-3">
+		<div class="col-2" *ngFor="let member of members">
+			<app-member-card [member]="member"></app-member-card>
+		</div>
+	</div>
+	<div class="flex flex-row justify-center align-middle" *ngIf="pagination">
+		<ngb-pagination
+			[collectionSize]="pagination.totalItems"
+			[(page)]="pageNumber"
+			[maxSize]="pagination.totalPages"
+			[pageSize]="pagination.itemsPerPage"
+			(pageChange)="pageChanged($event)"
+			[rotate]="true"
+			[ellipses]="false"
+			[boundaryLinks]="true"
+		></ngb-pagination>
+	</div>
+</div>
