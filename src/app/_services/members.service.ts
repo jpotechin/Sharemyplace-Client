@@ -1,11 +1,12 @@
 import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { of, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { IMember } from './../interface/account.interface';
+import { IMember, IUser } from './../interface/account.interface';
 import { PaginatedResult } from './../interface/pagination';
 import { UserParams } from './../interface/userParams';
+import { AccountService } from './account.service';
 
 @Injectable({
 	providedIn: 'root',
@@ -14,8 +15,32 @@ export class MembersService {
 	baseUrl = environment.apiUrl;
 	members: IMember[] = [];
 	memberCache = new Map();
+	user: IUser | null = null;
+	userParams!: UserParams;
 
-	constructor(private http: HttpClient) {}
+	constructor(private http: HttpClient, private accountService: AccountService) {
+		this.accountService.currentUser$.pipe(take(1)).subscribe((user) => {
+			this.user = user;
+			if (user) {
+				this.userParams = new UserParams(user);
+			}
+		});
+	}
+
+	getUserParams(): UserParams {
+		return this.userParams;
+	}
+
+	setUserParams(params: UserParams): void {
+		this.userParams = params;
+	}
+
+	resetUserParams(): UserParams {
+		if (this.user) {
+			this.userParams = new UserParams(this.user);
+		}
+		return this.userParams;
+	}
 
 	getMembers(userParams: UserParams): any {
 		const response = this.memberCache.get(Object.values(userParams).join('-'));
@@ -39,8 +64,13 @@ export class MembersService {
 	}
 
 	getMember(username: string): Observable<IMember> {
-		const member = this.members.find((selectedMember) => selectedMember.username === username);
-		if (member !== undefined) {
+		const member = [...this.memberCache.values()]
+			.reduce((arr, elem) => arr.concat(elem.result), [])
+			.find((user: IMember) => {
+				return user.username === username;
+			});
+
+		if (member) {
 			return of(member);
 		}
 		return this.http.get<IMember>(this.baseUrl + 'users/' + username);

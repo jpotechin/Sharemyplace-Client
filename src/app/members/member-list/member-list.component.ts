@@ -23,13 +23,8 @@ export class MemberListComponent implements OnInit {
 	];
 	model = 'lastActive';
 
-	constructor(private accountService: AccountService, private memberService: MembersService) {
-		this.accountService.currentUser$.pipe(take(1)).subscribe((user) => {
-			this.user = user;
-			if (user) {
-				this.userParams = new UserParams(user);
-			}
-		});
+	constructor(private memberService: MembersService) {
+		this.userParams = this.memberService.getUserParams();
 	}
 
 	ngOnInit(): void {
@@ -37,6 +32,7 @@ export class MemberListComponent implements OnInit {
 	}
 
 	loadMembers(): void {
+		this.memberService.setUserParams(this.userParams);
 		this.memberService
 			.getMembers(this.userParams)
 			.subscribe((response: { result: IMember[]; pagination: IPagination }) => {
@@ -48,13 +44,14 @@ export class MemberListComponent implements OnInit {
 
 	resetFilters(): void {
 		if (this.user) {
-			this.userParams = new UserParams(this.user);
+			this.userParams = this.memberService.resetUserParams();
 			this.loadMembers();
 		}
 	}
 
 	pageChanged(eventPage: any): void {
 		this.userParams.pageNumber = eventPage;
+		this.memberService.setUserParams(this.userParams);
 		this.loadMembers();
 	}
 
