@@ -15,11 +15,11 @@ export class MessagesComponent implements OnInit {
 	messages: IMessage[] | [] = [];
 	pagination: IPagination | undefined;
 	defaultMessage = 'No Messages';
-	container = 'Inbox';
+	container = 'Unread';
 	pageNumber = 1;
 	pageSize = 5;
 	userParams: UserParams;
-	loading = true;
+	loading = false;
 
 	unopenIcon = faEnvelope;
 	openIcon = faEnvelopeOpen;
@@ -34,7 +34,6 @@ export class MessagesComponent implements OnInit {
 	}
 
 	loadMessages(): void {
-		this.messages = [];
 		this.loading = true;
 		this.messageService.getMessages(this.pageNumber, this.pageSize, this.container).subscribe((response: any) => {
 			this.messages = response.result;

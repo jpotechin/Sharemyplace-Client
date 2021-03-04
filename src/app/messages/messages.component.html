@@ -15,10 +15,10 @@
 </div>
 
 <div class="row justify-content-center pb-5" *ngIf="messages?.length === 0 && !loading">
-	<h3 class="text-center">No Messages</h3>
+	<h3 class="text-center">No unread Messages.</h3>
 </div>
 
-<div class="row m-auto" *ngIf="messages && messages.length > 0">
+<div class="row m-auto" *ngIf="messages && messages.length > 0 && !loading">
 	<table class="table table-hover" style="cursor: pointer">
 		<tr>
 			<th style="width: 40%">Message</th>
@@ -58,7 +58,7 @@
 	</table>
 </div>
 
-<div class="flex flex-row justify-center align-middle" *ngIf="pagination">
+<div class="flex flex-row justify-center align-middle" *ngIf="pagination && !loading && messages.length > 0">
 	<ngb-pagination
 		[collectionSize]="pagination.totalItems"
 		[(page)]="userParams.pageNumber"
