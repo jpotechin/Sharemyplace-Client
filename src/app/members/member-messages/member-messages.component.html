@@ -1,1 +1,42 @@
-<p *ngFor="let message of messages">{{ message?.content }}</p>
+<div class="card">
+	<div class="card-body">
+		<div *ngIf="messages?.length === 0">No messages yet...</div>
+		<ul *ngIf="messages && messages.length > 0" class="chat">
+			<li *ngFor="let message of messages">
+				<div>
+					<span class="chat-img float-right"
+						><img
+							src="{{ message.senderPhotoUrl || './assets/user.png' }}"
+							alt="{{ message.senderUsername }}"
+							class="rounded-circle"
+					/></span>
+					<div class="chat-body">
+						<div class="header">
+							<small class="text-muted">
+								<span class="pr-2"
+									><fa-icon [icon]="clockIcon" class="pr-2"></fa-icon>{{ message.messageSent | timeago }}</span
+								>
+								<span class="text-red-500" *ngIf="!message.dateRead && message.senderUsername !== username"
+									>(unread)</span
+								>
+								<span class="text-green-500" *ngIf="message.dateRead && message.senderUsername !== username"
+									>(read {{ message.dateRead | timeago }})</span
+								>
+							</small>
+						</div>
+						<p>{{ message.content }}</p>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+	<div class="card-footer">
+		<form>
+			<div class="input-group">
+				<input type="text" class="form-control input-sm" placeholder="Send a message" />
+				<div class="input-group-append"><button class="btn-primary px-3 mx-3" type="submit">Send</button></div>
+			</div>
+		</form>
+	</div>
+</div>
