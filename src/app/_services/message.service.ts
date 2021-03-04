@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { IMessage } from '../interface/message';
 import { environment } from './../../environments/environment';
 import { getPaginatedResult, getPaginationHeaders } from './paginationHelper';
@@ -17,5 +18,9 @@ export class MessageService {
 
 		params = params.append('Container', container);
 		return getPaginatedResult<IMessage[]>(this.baseUrl + 'messages', params, this.http);
+	}
+
+	getMessageThread(username: string): Observable<IMessage[]> {
+		return this.http.get<IMessage[]>(this.baseUrl + 'messages/thread/' + username);
 	}
 }

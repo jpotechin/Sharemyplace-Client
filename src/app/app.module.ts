@@ -28,6 +28,7 @@ import { PhotoEditorComponent } from './members/photo-editor/photo-editor.compon
 import { MessagesComponent } from './messages/messages.component';
 import { NavComponent } from './nav/nav.component';
 import { RegisterComponent } from './register/register.component';
+import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -44,6 +45,7 @@ import { RegisterComponent } from './register/register.component';
 		MemberCardComponent,
 		MemberEditComponent,
 		PhotoEditorComponent,
+		MemberMessagesComponent,
 	],
 	imports: [
 		AppRoutingModule,
