@@ -1,3 +1,71 @@
-<ng-container *ngIf="messages">
-	<p *ngFor="let message of messages">{{ message?.content }}</p>
-</ng-container>
+<div class="row mb-4">
+	<div class="btn-group">
+		<div class="btn-group btn-group-toggle pl-5">
+			<button class="btn btn-primary" type="button" (click)="selectButton('Unread')">
+				<fa-icon [icon]="unopenIcon" class="pr-2"></fa-icon>Unread
+			</button>
+			<button class="btn btn-primary" type="button" (click)="selectButton('Inbox')">
+				<fa-icon [icon]="openIcon" class="pr-2"></fa-icon>Inbox
+			</button>
+			<button class="btn btn-primary" type="button" (click)="selectButton('Outbox')">
+				<fa-icon [icon]="outboxIcon" class="pr-2"></fa-icon>Outbox
+			</button>
+		</div>
+	</div>
+</div>
+
+<div class="row" *ngIf="messages?.length === 0">
+	<h3>No Messages</h3>
+</div>
+
+<div class="row m-auto" *ngIf="messages && messages.length > 0">
+	<table class="table table-hover" style="cursor: pointer">
+		<tr>
+			<th style="width: 40%">Message</th>
+			<th style="width: 20%">From / To</th>
+			<th style="width: 20%">Sent / Received</th>
+			<th style="width: 20%">Message</th>
+		</tr>
+		<tr
+			*ngFor="let message of messages"
+			routerLink="{{
+				container === 'Outbox' ? '/members/' + message.recipientUsername : '/members/' + message.senderUsername
+			}}"
+		>
+			<td>{{ message.content }}</td>
+			<td>
+				<div *ngIf="container === 'Outbox'">
+					<img
+						class="img-circle rounded-circle mr-2"
+						src="{{ message.recipientPhotoUrl || './assets/user.png' }}"
+						alt="Photo of {{ message.recipientUsername }}"
+					/>
+					<strong>{{ message.recipientUsername }}</strong>
+				</div>
+				<div *ngIf="container !== 'Outbox'">
+					<img
+						class="img-circle rounded-circle mr-2"
+						src="{{ message.senderPhotoUrl || './assets/user.png' }}"
+						alt="Photo of {{ message.senderUsername }}"
+					/>
+					<strong>{{ message.senderUsername }}</strong>
+				</div>
+			</td>
+			<td>{{ message.messageSent | timeago }}</td>
+			<td><button class="btn btn-danger">Delete</button></td>
+		</tr>
+	</table>
+</div>
+
+<div class="flex flex-row justify-center align-middle" *ngIf="pagination">
+	<ngb-pagination
+		[collectionSize]="pagination.totalItems"
+		[(page)]="userParams.pageNumber"
+		[maxSize]="pagination.totalPages"
+		[pageSize]="pagination.itemsPerPage"
+		(pageChange)="pageChanged($event)"
+		[rotate]="true"
+		[ellipses]="false"
+		[boundaryLinks]="true"
+	></ngb-pagination>
+</div>
