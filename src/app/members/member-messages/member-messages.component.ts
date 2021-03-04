@@ -1,5 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { faClock } from '@fortawesome/free-solid-svg-icons';
+import { MessageService } from 'src/app/_services/message.service';
 import { IMessage } from './../../interface/message';
 
 @Component({
@@ -8,11 +10,21 @@ import { IMessage } from './../../interface/message';
 	styleUrls: ['./member-messages.component.scss'],
 })
 export class MemberMessagesComponent implements OnInit {
-	@Input() messages!: IMessage[] | [];
+	@ViewChild('messageForm')
+	messageForm!: NgForm;
+	@Input() messages: IMessage[] = [];
 	@Input() username = '';
+	messageContent = '';
 	clockIcon = faClock;
 
-	constructor() {}
+	constructor(private messageService: MessageService) {}
 
 	ngOnInit(): void {}
+
+	sendMessage(): void {
+		this.messageService.sendMessage(this.username, this.messageContent).subscribe((message: IMessage): void => {
+			this.messages.push(message);
+			this.messageForm.reset();
+		});
+	}
 }
