@@ -17,6 +17,7 @@ export class MemberDetailComponent implements OnInit {
 	galleryOptions!: NgxGalleryOptions[];
 	galleryImages!: NgxGalleryImage[];
 	messages: IMessage[] | [] = [];
+	memberUsername = '';
 
 	constructor(
 		private memberService: MembersService,
@@ -26,6 +27,9 @@ export class MemberDetailComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.loadMember();
+		this.route.queryParams.subscribe((params) => {
+			params.tab ? this.toggleTabs(parseInt(params.tab, 10)) : this.toggleTabs(1);
+		});
 		this.galleryOptions = [
 			{
 				width: '500px',
@@ -59,7 +63,11 @@ export class MemberDetailComponent implements OnInit {
 	}
 
 	loadMessages(): void {
-		this.messageService.getMessageThread(this.member.username).subscribe((messages) => {
+		const username = this.route.snapshot.paramMap.get('username')
+			? this.route.snapshot.paramMap.get('username')
+			: this.member.username;
+		this.memberUsername = username ? username : this.member.username;
+		this.messageService.getMessageThread(this.memberUsername).subscribe((messages) => {
 			this.messages = messages;
 		});
 	}

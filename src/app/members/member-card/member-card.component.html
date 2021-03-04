@@ -18,7 +18,11 @@
 					</button>
 				</li>
 				<li class="inline">
-					<button class="text-white font-bold uppercase px-2 py1">
+					<button
+						class="text-white font-bold uppercase px-2 py1"
+						routerLink="/members/{{ member.username }}"
+						[queryParams]="{ tab: 4 }"
+					>
 						<fa-icon [icon]="messageIcon"></fa-icon>
 					</button>
 				</li>

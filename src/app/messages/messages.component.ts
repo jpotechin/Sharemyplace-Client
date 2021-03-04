@@ -19,6 +19,7 @@ export class MessagesComponent implements OnInit {
 	pageNumber = 1;
 	pageSize = 5;
 	userParams: UserParams;
+	loading = true;
 
 	unopenIcon = faEnvelope;
 	openIcon = faEnvelopeOpen;
@@ -34,11 +35,11 @@ export class MessagesComponent implements OnInit {
 
 	loadMessages(): void {
 		this.messages = [];
+		this.loading = true;
 		this.messageService.getMessages(this.pageNumber, this.pageSize, this.container).subscribe((response: any) => {
-			console.log(response);
 			this.messages = response.result;
-			console.log(this.messages);
 			this.pagination = response.pagination;
+			this.loading = false;
 		});
 	}
 
