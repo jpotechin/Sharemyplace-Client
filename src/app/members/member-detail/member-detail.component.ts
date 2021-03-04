@@ -26,7 +26,10 @@ export class MemberDetailComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		this.loadMember();
+		this.route.data.subscribe((data) => {
+			this.member = data.member;
+			this.galleryImages = this.getImages();
+		});
 		this.route.queryParams.subscribe((params) => {
 			params.tab ? this.toggleTabs(parseInt(params.tab, 10)) : this.toggleTabs(1);
 		});
@@ -52,14 +55,6 @@ export class MemberDetailComponent implements OnInit {
 			});
 		}
 		return imageUrls;
-	}
-
-	loadMember(): void {
-		// @ts-ignore
-		this.memberService.getMember(this.route.snapshot.paramMap.get('username')).subscribe((member) => {
-			this.member = member;
-			this.galleryImages = this.getImages();
-		});
 	}
 
 	loadMessages(): void {
