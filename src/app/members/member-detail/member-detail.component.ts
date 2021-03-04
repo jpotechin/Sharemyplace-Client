@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { MembersService } from './../../_services/members.service';
+import { MessageService } from './../../_services/message.service';
 import { IMember } from './../../interface/account.interface';
+import { IMessage } from './../../interface/message';
 
 @Component({
 	selector: 'app-member-detail',
@@ -14,8 +16,13 @@ export class MemberDetailComponent implements OnInit {
 	openTab = 1;
 	galleryOptions!: NgxGalleryOptions[];
 	galleryImages!: NgxGalleryImage[];
+	messages: IMessage[] | [] = [];
 
-	constructor(private memberService: MembersService, private route: ActivatedRoute) {}
+	constructor(
+		private memberService: MembersService,
+		private messageService: MessageService,
+		private route: ActivatedRoute
+	) {}
 
 	ngOnInit(): void {
 		this.loadMember();
@@ -51,7 +58,23 @@ export class MemberDetailComponent implements OnInit {
 		});
 	}
 
+	loadMessages(): void {
+		this.messageService.getMessageThread(this.member.username).subscribe((messages) => {
+			this.messages = messages;
+		});
+	}
+
 	public toggleTabs($tabNumber: number): void {
 		this.openTab = $tabNumber;
+		if (this.openTab === 4 && this.messages.length === 0) {
+			this.loadMessages();
+		}
+	}
+
+	public toggleMessagesTab(): void {
+		this.openTab = 4;
+		if (this.messages.length === 0) {
+			this.loadMessages();
+		}
 	}
 }

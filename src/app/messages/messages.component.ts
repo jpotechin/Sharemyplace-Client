@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { faEnvelope, faEnvelopeOpen, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { MembersService } from '../_services/members.service';
+import { UserParams } from '../interface/userParams';
 import { MessageService } from './../_services/message.service';
 import { IMessage } from './../interface/message';
 import { IPagination } from './../interface/pagination';
-import { MembersService } from '../_services/members.service';
-import { UserParams } from '../interface/userParams';
 
 @Component({
 	selector: 'app-messages',
@@ -12,7 +12,7 @@ import { UserParams } from '../interface/userParams';
 	styleUrls: ['./messages.component.scss'],
 })
 export class MessagesComponent implements OnInit {
-	messages!: IMessage[];
+	messages: IMessage[] | [] = [];
 	pagination: IPagination | undefined;
 	defaultMessage = 'No Messages';
 	container = 'Inbox';
