@@ -31,7 +31,7 @@
 				</div>
 				<div class="grid grid-cols-2">
 					<button class="like-button bg-red-500">Like</button>
-					<button class="message-button bg-yellow-500">Message</button>
+					<button class="message-button bg-yellow-500" (click)="toggleMessagesTab()">Message</button>
 				</div>
 			</div>
 		</div>
@@ -91,7 +91,9 @@
 								<div [ngClass]="{ hidden: openTab !== 3, block: openTab === 3 }">
 									<ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
 								</div>
-								<div [ngClass]="{ hidden: openTab !== 4, block: openTab === 4 }">Messages</div>
+								<div [ngClass]="{ hidden: openTab !== 4, block: openTab === 4 }">
+									<app-member-messages [messages]="messages" [username]="memberUsername"></app-member-messages>
+								</div>
 							</div>
 						</div>
 					</div>
